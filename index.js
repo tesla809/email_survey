@@ -2,7 +2,7 @@ const express = require('express');  // commonJS modules
 const app = express();
 
 app.get('/', (req, res) => {  // express route handler
-  res.send({ hi: 'there' });
+  res.send({ Hola: 'Hello from the internet Manito!' });
 }); 
 
 
