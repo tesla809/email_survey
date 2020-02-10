@@ -1,1 +1,5 @@
+# node packages
 node_modules
+
+# contains our OAuth keys
+config/keys.js
