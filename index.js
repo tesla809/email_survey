@@ -4,7 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {  // root route
   res.send('Home page');
 });
 
