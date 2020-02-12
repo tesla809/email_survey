@@ -4,6 +4,9 @@ const { passportConfig } = require('./services/passport');  // use passportJS co
 const authRoutes = require('./routes/authRoutes');
 const keys = require('./config/keys');
 
+// load models
+require('./models/User');
+
 // database
 const handleDatabaseError = e => console.log(e);
 
