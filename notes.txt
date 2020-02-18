@@ -1,0 +1,1 @@
+If in public cafe or not at home, make sure to include IP address to Atlas whitelist.
