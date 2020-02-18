@@ -5,16 +5,33 @@ const keys = require('../config/keys.js');  // clientID and ClientSecret
 const mongoose = require('mongoose');  // loaded like this to avoid confusing mongoose and having errors
 const User = mongoose.model('User');  // already loaded into mongoose in User.js, so we can access it.
 
+passport.serializeUser((user, done) => {  // create cookie from user model
+  done(null, user.id);  // user.id is primary key made by mongoDB, not profile.id. Ids unique user in database. After user signs in we only care about database id. Google id is for auth flow only
+});
+
+passport.deserializeUser((id, done) => {  // turn cookie to mongoose model user instance
+  User.findById(id)  // find user by id
+    .then(user => {  // async, so handle promise 
+      done(null, user);
+    })  
+});
+
+
+
 const saveToDatabase = (accessToken, refreshToken, profile, done) => {  // in this callback, we can create new user in database
   User.findOne({ googleId: profile.id }) // query to see if googleId matches profileId. If no, create.
     .then(existingUser => {
       if (existingUser) {  // if exisitingUser exist.
-        console.log('record exists, do nothing');
+        done(null, existingUser); // done(err, userRecord)tell passportJS -> finished, proceed w/ auth flow, no error, here is user.
+        console.log(`${existingUser}User exists already`)
       } else {
-        new User({ googleId: profile.id }).save();  // save our ID into our database -> ourId: google's id
+        new User({ googleId: profile.id })  // user info  we send to database
+          .save()  // save our ID into our database -> ourId: google's id
+          .then(newUser => done(null, newUser));  // userInfo database sends back to us. Might have more info
         console.log(`${profile.id} SAVED`);
       }
     });
+    
 };
 
 const passportConfig = () => {
