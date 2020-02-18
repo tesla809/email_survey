@@ -1,11 +1,13 @@
 const express = require('express');  // commonJS modules
 const mongoose = require('mongoose');
-const { passportConfig } = require('./services/passport');  // use passportJS config in index.js. Not returning anything, just needs to be executed. No need to assign it to anything, only execute with require().
 const authRoutes = require('./routes/authRoutes');
 const keys = require('./config/keys');
 
-// load models
+// load models first
 require('./models/User');
+
+// configure passport- needs to happen after creating model schema
+const { passportConfig } = require('./services/passport');  // use passportJS config in index.js. Not returning anything, just needs to be executed. No need to assign it to anything, only execute with require().
 
 // database
 const handleDatabaseError = e => console.log(e);
