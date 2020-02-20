@@ -2,7 +2,7 @@
 node_modules
 
 # contains our OAuth keys
-config/keys.js
+dev.js
 
 # info related to external services
 external-services-info.txt
