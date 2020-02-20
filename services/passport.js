@@ -36,7 +36,8 @@ const passportConfig = () => {
   passport.use(new GoogleStrategy({  // passport is middleware that helps express with OAth- signing in via third parties to an app. 
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'  // route that google sends users to after users gives ok to let app access info. Google gives access token/code to redeemed for access.
+    callbackURL: '/auth/google/callback',  // route that google sends users to after users gives ok to let app access info. Google gives access token/code to redeemed for access.
+    proxy: true // fixes issues with Passport trusting Heroku's proxy load balancing server, and how it's Google Strategy appends protocol (http vs https). We could have also added key to dev/prod keys with hardcoded address 
   }, saveToDatabase));  // passport to use new instance of code for Google OAuth  
 };
 
