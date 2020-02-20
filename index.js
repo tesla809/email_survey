@@ -27,7 +27,7 @@ try {
 const app = express();  // setup server instance
 
 // cookie config and setup with passport
-app.use(  // set up cookies
+app.use(  // set up cookies in app middle ware. Middleware are small functions that pre-proccess incoming requests to app before sending off to route handlers. They are a great place to put logic common to random handlers.
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,  // expiration date in 30 days,
     keys: [keys.cookieKey] // automatic encryption of key for cookie, can use multiple keys in array for security
