@@ -1,1 +1,5 @@
 If in public cafe or not at home, make sure to include IP address to Atlas whitelist.
+
+
+Add local mongoDB database for testing.
+see https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
