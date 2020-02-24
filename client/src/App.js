@@ -11,7 +11,7 @@ function App() {
           Welcome to <code>Emaily!</code>
         </h2>
 
-        <a href="http://localhost:5000/auth/google">Sign in With Google</a>
+        <a href="/auth/google">Sign in With Google</a>
       </header>
     </div>
   );
