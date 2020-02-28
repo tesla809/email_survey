@@ -11,7 +11,7 @@ passport.serializeUser((user, done) => {  // create cookie from user model
 
 passport.deserializeUser(async (id, done) => {  // turn cookie to mongoose model user instance
   const findUser = await User.findById(id)  // find user by id
-  done(null, user);  // done() is passportJS middleware to tell it to move to next step in auth. null is passed in as an error handler
+  done(null, findUser);  // done() is passportJS middleware to tell it to move to next step in auth. null is passed in as an error handler
 });
 
 const saveToDatabase = async (accessToken, refreshToken, profile, done) => {  // in this callback, we can create new user in database
