@@ -16,20 +16,16 @@ passport.deserializeUser((id, done) => {  // turn cookie to mongoose model user 
     })  
 });
 
-const saveToDatabase = (accessToken, refreshToken, profile, done) => {  // in this callback, we can create new user in database
-  User.findOne({ googleId: profile.id }) // query to see if googleId matches profileId. If no, create.
-    .then(existingUser => {
-      if (existingUser) {  // if exisitingUser exist, don't add them again.
-        done(null, existingUser); // done(err, userRecord)tell passportJS -> finished, proceed w/ auth flow, no error, here is user.
-        console.log(`${existingUser}User exists already`)
-      } else {
-        new User({ googleId: profile.id })  // user info  we send to database
-          .save()  // save our ID into our database -> ourId: google's id
-          .then(newUser => done(null, newUser));  // userInfo database sends back to us. Might have more info, including the primary key that MongoDB adds to each new record.
-        console.log(`${profile.id} SAVED`);
-      }
-    });
-    
+const saveToDatabase = async (accessToken, refreshToken, profile, done) => {  // in this callback, we can create new user in database
+  const existingUser = await User.findOne({ googleId: profile.id }) // query to see if googleId matches profileId. If no, create.
+  if (existingUser) {  // if exisitingUser exist, don't add them again.
+    console.log(`${existingUser} User exists already`)
+    return done(null, existingUser); // done(err, userRecord)tell passportJS -> finished, proceed w/ auth flow, no error, here is user.
+  } 
+
+  const newUser = await new User({ googleId: profile.id }).save()  // if not above, else do this: user info  we send to database and save our ID into our database -> ourId: google's id
+  console.log(`${profile.id} SAVED`);
+  done(null, newUser);  // userInfo database sends back to us. Might have more info, including the primary key that MongoDB adds to each new record.
 };
 
 const passportConfig = () => {
