@@ -9,7 +9,7 @@ const Landing = () => <h2>Landing</h2>
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <BrowserRouter>
         <Header />
         <Route exact path="/" component={Landing} />
