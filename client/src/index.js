@@ -1,4 +1,5 @@
 // data layer control (Redux)
+import 'materialize-css/dist/css/materialize.min.css';  // import css file at root level. Use CSS since easier to customize for now vs JS in CSS.
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';  // manages react redux integeration. Provider reads/passes store to App and all its components
