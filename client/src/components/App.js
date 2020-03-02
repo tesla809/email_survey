@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions';  // import all actions (using *) as actions
 
 import Header from './Header';
 
@@ -8,6 +10,10 @@ const SurveyNew = () => <h2>SurveyNew</h2>
 const Landing = () => <h2>Landing</h2>
 
 class App extends Component {
+  componentDidMount() {  // as soon as component loads, do action
+    this.props.fetchUser();
+  }
+
   render() {
     return (
       <div className="container">
@@ -22,7 +28,7 @@ class App extends Component {
   }
 };
 
-export default App;
+export default connect(null, actions)(App);
 
 /*
 BrowserRouter

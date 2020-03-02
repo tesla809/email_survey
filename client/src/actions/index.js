@@ -2,7 +2,7 @@
 import axios from 'axios';  // make api requests
 import { FETCH_USER } from './types';
 
-const fetchUsers = () => {
+export const fetchUser = () => {
   return function(dispatch) {
     axios
       .get('/api/current_user')  // dispatch AFTER api request has completed
