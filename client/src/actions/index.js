@@ -3,10 +3,9 @@ import axios from 'axios';  // make api requests
 import { FETCH_USER } from './types';
 
 export const fetchUser = () => {
-  return function(dispatch) {
-    axios
-      .get('/api/current_user')  // dispatch AFTER api request has completed
-      .then(res => dispatch({ type: FETCH_USER, payload: res }));
+  return async dispatch => {
+    const res = await axios.get('/api/current_user');  // dispatch AFTER api request has completed
+    dispatch({ type: FETCH_USER, payload: res });
   }
 };
 
