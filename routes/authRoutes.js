@@ -15,12 +15,15 @@ router.get('/google',  // route to handle google auth
 );
 
 router.get('/google/callback', // code (inside returned url) sent back by google, to give app permission to data, is handled by passport. Make sure that callback address is whitelisted on google's OAuth service
-  passport.authenticate('google')
+  passport.authenticate('google'),
+  (req, res) => {
+    res.redirect('/surveys');  // redirects to another route 
+  }
 );
 
 router.get('/logout', (req, res) => {
   req.logout();  // passport attaches .logout() automatically to req. Kills cookie id.
-  res.send(`Goodbye! Signed out! req.user is ${req.user}.`);
+  res.redirect('/');
 });
 
 
