@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   renderContent() {
@@ -13,18 +14,26 @@ class Header extends Component {
     }
   }
 
+  logoRouting() {
+    return this.props.auth ? '/surveys' : '/';
+  }
+
   render() {
     return(
       <nav>
         <div className="nav-wrapper">
-          <a className="left brand-logo">Emaily</a>
+          <Link 
+            to={this.logoRouting()} 
+            className="left brand-logo">
+            Emaily
+          </Link>
           <ul className="right">
             <li>{this.renderContent()}</li>
           </ul>
         </div>
       </nav>
     );
- } 
+  } 
 }
 
 function mapStateToProps({ auth }) {
